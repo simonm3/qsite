@@ -21,6 +21,7 @@ jobs:
             git reset --hard
             git commit --allow-empty -m "Initialising gh-pages branch"
             git push origin gh-pages
+            git checkout master
           fi
 
       - name: Set up Quarto
