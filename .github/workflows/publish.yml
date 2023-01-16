@@ -17,7 +17,7 @@ jobs:
           if  [[ ! "`git ls-remote origin gh-pages`" ]]; then
             # git config --global user.email "github-actions[bot]@users.noreply.github.com"
             # git config --global user.name "github-actions"
-            git checkout -b --orphan gh-pages
+            git checkout --orphan -b gh-pages
             # git commit --allow-empty -m "Initialising gh-pages branch"
             git push -u origin gh-pages
           fi
