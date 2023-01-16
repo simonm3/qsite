@@ -9,9 +9,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
       - name: setup gh-pages
         run: |
           if  [[ ! "`git ls-remote origin gh-pages`" ]]; then
@@ -22,6 +19,9 @@ jobs:
             git commit --allow-empty -m "Initialising gh-pages branch"
             git push origin gh-pages
           fi
+
+      - name: Check out repository
+        uses: actions/checkout@v2
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
