@@ -1,0 +1,35 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: master
+name: Quarto Publish
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: setup gh-pages
+        run: |
+          if  [[ ! "`git ls-remote origin gh-pages`" ]]; then
+            # git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            # git config --global user.name "github-actions"
+            git checkout -b --orphan gh-pages
+            # git commit --allow-empty -m "Initialising gh-pages branch"
+            git push -u origin gh-pages
+          fi
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
